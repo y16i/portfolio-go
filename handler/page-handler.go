@@ -14,25 +14,28 @@ func PageHandler(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 	slug, present := query["slug"]
 	if !present {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(`{"message": "not found"}`))
+		notFound(w, r)
 	}
 
 	// support only GET
 	if r.Method == "GET" {
 		page, pageErr := database.GetWordPressPage(slug[0])
 		if pageErr != nil {
-			log.Printf("%v", pageErr)
+			notFound(w, r)
+		} else {
+			w.WriteHeader(http.StatusOK)
+			marshaled, marshalErr := json.Marshal(page)
+			if marshalErr != nil {
+				log.Println(marshalErr)
+			}
+			w.Write([]byte(marshaled))
 		}
-		log.Printf("%v", page)
-		w.WriteHeader(http.StatusOK)
-		marshaled, marshalErr := json.Marshal(page)
-		if marshalErr != nil {
-			log.Fatal(marshalErr)
-		}
-		w.Write([]byte(marshaled))
 	} else {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(`{"message": "not found"}`))
+		notFound(w, r)
 	}
+}
+
+func notFound(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	w.Write([]byte(`{"message": "not found"}`))
 }

@@ -11,7 +11,7 @@ func GetWordPressPage(slug string) (*WordPressPage, error) {
 	page := new(WordPressPage)
 	queryErr := row.Scan(&page.Title, &page.Content)
 	if queryErr != nil {
-		log.Fatal(queryErr)
+		log.Println(queryErr)
 	}
 
 	return page, queryErr
