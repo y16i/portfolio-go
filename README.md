@@ -1,11 +1,11 @@
-# Dependencies management
-[https://blog.golang.org/using-go-modules#TOC_4.]
-```shell
-# Dependencies list
-go list -m all
+This application is a partial replacement of WordPress API. It takes a page content from WordPress database directly.
 
-# add/upgrade library
-go get github.com/aws/aws-sdk-go
+It supports only GET request for a page post_type.
+
+# Before build
+This application reuse DB_NAME, DB_USER, DB_PASSWORD and DB_HOST in wp-config.php. You need to change wpConfigPath in main.go
+```go
+wpConfigPath string = "/var/www/portfolio/wp/wp-config.php"
 ```
 
 # Build
@@ -21,4 +21,8 @@ go build -gcflags="all=-N -l"
 # Watch
 watcher backend-go
 ```
+
+# API Request
+GET /api/v1.0/pages?slug=page-slug
+Response {title: "Page Title", content: "Page Content"}
 
