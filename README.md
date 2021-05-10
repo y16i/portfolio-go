@@ -32,5 +32,5 @@ API request
 	http://custom-domain.com/api/v1.0/pages?slug=summary
 
 site config
- ProxyPass /api http://localhost:8080/api
- ProxyPassReverse /api http://localhost:8080/api
+ ProxyPass /api/v1.0 http://localhost:8080/api/v1.0
+ ProxyPassReverse /api/v1.0 http://localhost:8080/api/v1.0
