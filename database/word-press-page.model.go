@@ -1,6 +1,10 @@
 package database
 
+type wpRendered struct {
+	Rendered string `json:"rendered"`
+}
+
 type WordPressPage struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	Title   wpRendered `json:"title"`
+	Content wpRendered `json:"content"`
 }

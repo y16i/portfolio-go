@@ -26,3 +26,11 @@ watcher backend-go
 GET /api/v1.0/pages?slug=page-slug
 Response {title: "Page Title", content: "Page Content"}
 
+# apache2 proxy_http
+e.g.)
+API request
+	http://custom-domain.com/api/v1.0/pages?slug=summary
+
+site config
+ ProxyPass /api http://localhost:8080/api
+ ProxyPassReverse /api http://localhost:8080/api

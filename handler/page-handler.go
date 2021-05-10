@@ -24,7 +24,9 @@ func PageHandler(w http.ResponseWriter, r *http.Request) {
 			notFound(w, r)
 		} else {
 			w.WriteHeader(http.StatusOK)
-			marshaled, marshalErr := json.Marshal(page)
+			var pages [1]database.WordPressPage
+			pages[0] = *page
+			marshaled, marshalErr := json.Marshal(pages)
 			if marshalErr != nil {
 				log.Println(marshalErr)
 			}
