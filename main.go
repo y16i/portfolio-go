@@ -6,6 +6,7 @@ import (
 
 	"bitbucket.org/y16i/backend-go/database"
 	"bitbucket.org/y16i/backend-go/handler"
+	"bitbucket.org/y16i/backend-go/repositories"
 )
 
 const (
@@ -14,8 +15,13 @@ const (
 )
 
 func main() {
-	database.InitDatabase(wpConfigPath)
+	db := database.InitDatabase(wpConfigPath)
 
-	http.HandleFunc("/api/v1.0/pages", handler.PageHandler)
+	pageRepo := repositories.NewPageRepository(db)
+	defer pageRepo.Close()
+
+	h := handler.NewBaseHandler(pageRepo)
+
+	http.HandleFunc("/api/v1.0/pages", h.PageHandler)
 	log.Fatal(http.ListenAndServe(port, nil))
 }
