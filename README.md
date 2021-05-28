@@ -31,7 +31,7 @@ GET /api/v1.0/pages?slug=page-slug
 ```
 Response
 ```json
-{title: {rendered: "Page Title"}, content: {rendered: "Page Content"}}
+{"title": {"rendered": "Page Title"}, "content": {"rendered": "Page Content"}}
 ```
 
 # apache2 proxy_http sample
