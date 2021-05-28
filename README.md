@@ -10,24 +10,29 @@ wpConfigPath string = "/var/www/portfolio/wp/wp-config.php"
 
 # Build
 ```shell
-go build bitbucket.org/y16i/backend-go
+go build github.com/y16i/portfolio-go
 
 # To set breakpoint
 go build -gcflags="all=-N -l"
 
 # Run
-./backend-go
+./portfolio-go
 
 # Watch
-watcher backend-go
+watcher portfolio-go
 
 # Test
 go test ./...
 ```
 
 # API request sample
+```bash
 GET /api/v1.0/pages?slug=page-slug
-Response {title: {rendered: "Page Title"}, content: {rendered: "Page Content"}}
+```
+Response
+```json
+{title: {rendered: "Page Title"}, content: {rendered: "Page Content"}}
+```
 
 # apache2 proxy_http sample
 e.g.)
